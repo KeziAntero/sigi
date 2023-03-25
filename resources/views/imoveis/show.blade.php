@@ -9,10 +9,9 @@
             <div class="card-header">{{ __('imovel.detail') }}</div>
             <div class="card-body">
                 <table class="table table-sm">
-                    <tbody>
-
-                        <tr><td>{{ __('imovel.tpImovel') }}</td><td>{{ $imovel->tpImovel }}</td></tr>
+                    <tbody>             
                         <tr><td>{{ __('imovel.seq') }}</td><td>{{ $imovel->seq }}</td></tr>
+                        <tr><td>{{ __('imovel.tipo') }}</td><td>{{ $imovel->tipo }}</td></tr>
                         <tr><td>{{ __('imovel.setor') }}</td><td>{{ $imovel->setor }}</td></tr>                     
                         <tr><td>{{ __('imovel.quadra') }}</td><td>{{ $imovel->quadra }}</td></tr>
                         <tr><td>{{ __('imovel.lote') }}</td><td>{{ $imovel->lote }}</td></tr>
@@ -20,13 +19,13 @@
                         <tr><td>{{ __('imovel.owner.name_owner') }}</td><td>{{ $imovel->owner->name_owner}}</td></tr>
                         <tr><td>{{ __('imovel.latitude') }}</td><td>{{ $imovel->latitude }}</td></tr>
                         <tr><td>{{ __('imovel.longitude') }}</td><td>{{ $imovel->longitude }}</td></tr>
-                      
                     </tbody>
                 </table>
             </div>
             <div class="card-footer">
                 @can('update', $imovel)
-                    <a href="{{ route('imoveis.edit', $imovel) }}" id="edit-imovel-{{ $imovel->id }}" class="btn btn-warning">{{ __('imovel.edit') }} </a>
+        <a href="{{ route('imoveis.edit', $imovel->id) }}" id="edit-imovel-{{ $imovel->id }}" class="btn btn-warning">{{ __('imovel.edit') }} </a>
+
                 @endcan
                 @if(auth()->check())
                     <a href="{{ route('imoveis.index') }}" class="btn btn-link">{{ __('imovel.back_to_index') }}</a>

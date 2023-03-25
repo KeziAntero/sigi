@@ -14,6 +14,7 @@ $factory->define(Imovel::class, function (Faker $faker) {
 
     return [
         'seq'       => ucwords($faker->words(2, true)),
+        'tipo'     => $faker->tipo,
         'setor'     => $faker->setor,
         'quadra'    => $faker->quadra,
         'lote'      => $faker->lote,

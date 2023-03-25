@@ -50,6 +50,7 @@ class ImovelController extends Controller
 
         $newImovel = $request->validate([
             'seq'       => 'required|max:10',
+            'tipo'      => 'required|in:territorial,predial',
             'setor'     => 'required|max:02',
             'quadra'    => 'required|max:05',
             'lote'      => 'required|max:05',
@@ -92,29 +93,38 @@ class ImovelController extends Controller
     /**
      * 
      *
-     * @param  \App\Imovel  $Imovel
+     * @param  integer  $id
      * @return \Illuminate\View\View
      */
-    public function edit(Imovel $imovel)
-    {
-        $this->authorize('update', $imovel);
+public function edit($id)
+{
+    
+    $imovel = Imovel::findOrFail($id);
 
-        return view('imoveis.edit', compact('imovel'));
-    }
+   
+    $this->authorize('update', $imovel);
 
+    
+    return view('imoveis.edit', compact('imovel'));
+}
     /**
      * 
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Imovel  $Imovel
+     * @param  integer  $id
      * @return \Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Imovel $imovel)
+    public function update(Request $request, $id)
     {
-        $this->authorize('update', $imovel);
+        $imovel = Imovel::findOrFail($id);
 
+         if (!auth()->user()->can('update', $imovel)) {
+        abort(403);
+    }
         $imovelData = $request->validate([
+            
             'seq'       => 'required|max:10',
+            'tipo'      => 'required|in:territorial,predial',
             'setor'     => 'required|max:02',
             'quadra'    => 'required|max:05',
             'lote'      => 'required|max:05',
@@ -136,26 +146,29 @@ class ImovelController extends Controller
      
         $imovel->update($imovelData);
 
-        return redirect()->route('imoveis.index', $imovel);
-    }
+        return redirect()->route('imoveis.index', $imovel)->with('success', 'Imóvel atualizado com sucesso.');
+}
+    
 
     /**
      * 
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Imovel  $Imovel
+     * @param  integer  $id
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Request $request, Imovel $imovel)
-    {
-        $this->authorize('delete', $imovel);
+    public function destroy(Request $request, $id)
+{
+    $imovel = Imovel::findOrFail($id);
+    $this->authorize('delete', $imovel);
 
-        $request->validate(['imovel_id' => 'required']);
+    $request->validate(['imovel_id' => 'required']);
 
-        if ($request->get('imovel_id') == $imovel->id && $imovel->delete()) {
-            return redirect()->route('imoveis.index');
-        }
-
-        return back();
+    if ($request->get('imovel_id') == $imovel->id && $imovel->delete()) {
+        return redirect()->route('imoveis.index');
     }
+
+    return back();
+}
+
 }

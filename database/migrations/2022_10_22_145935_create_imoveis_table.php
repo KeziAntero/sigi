@@ -54,4 +54,7 @@ class CreateImoveisTable extends Migration
         Schema::dropIfExists('imoveis');
     }
 };
+Schema::table('imoveis', function (Blueprint $table) {
+    $table->string('tipo')->nullable();
+});
 

@@ -51,7 +51,7 @@ crossorigin=""/>
     // create custom button
 const customControl = L.Control.extend({
   // button position
-  options: {
+    options: {
     position: "topleft",
     className: "locate-button leaflet-bar",
     html: '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>',
@@ -184,7 +184,7 @@ const customControl = L.Control.extend({
 // adding new button to map controll
 map.addControl(new customControl());
     var markers = L.markerClusterGroup();
-
+       
     axios.get('{{ route('api.imoveis.index') }}')
     .then(function (response) {
         var marker = L.geoJSON(response.data, {
@@ -196,6 +196,9 @@ map.addControl(new customControl());
         });
         markers.addLayer(marker);
     })
+
+   
+
     .catch(function (error) {
         console.log(error);
     });
@@ -204,10 +207,11 @@ map.addControl(new customControl());
     @can('create', new App\Imovel)
     var theMarker;
 
+    
     map.on('click', function(e) {
         let latitude = e.latlng.lat.toString().substring(0, 15);
         let longitude = e.latlng.lng.toString().substring(0, 15);
-            
+                   
         if (theMarker != undefined) {
             map.removeLayer(theMarker);
         };

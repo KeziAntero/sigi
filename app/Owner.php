@@ -19,7 +19,7 @@ class Owner extends Model
          * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
          */
         public function imoveis() {
-            #Um Dono pode ter vários imóveis
+            #Um Proprietário pode ter vários imóveis
             #em vez de belongsTo (Pertence á) é hasMany (Tem muitos)
             return $this->hasMany(Imovel::class);
         }

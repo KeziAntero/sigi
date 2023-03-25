@@ -10,10 +10,10 @@
             <div class="card">
                 <div class="card-header">{{ __('imovel.delete') }}</div>
                 <div class="card-body">
-                    <label class="control-label text-primary">{{ __('imovel.tpImovel') }}</label>
-                    <p>{{ $imovel->tpImovel}}</p>
                     <label class="control-label text-primary">{{ __('imovel.seq') }}</label>
                     <p>{{ $imovel->seq}}</p>
+                    <label class="control-label text-primary">{{ __('imovel.tipo') }}</label>
+                    <p>{{ $imovel->tipo}}</p>
                     <label class="control-label text-primary">{{ __('imovel.setor') }}</label>
                     <p>{{ $imovel->setor}}</p>
                     <label class="control-label text-primary">{{ __('imovel.quadra') }}</label>
@@ -48,30 +48,21 @@
             <form method="POST" action="{{ route('imoveis.update', $imovel) }}" accept-charset="UTF-8">
                 {{ csrf_field() }} {{ method_field('patch') }}
                 <div class="card-body">
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <label for="sequencial" class="control-label">{{ __('imovel.tpImovel') }}</label>
-                            <div class="form-check">
-                               <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="1">
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                Predial
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="2">
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                Territorial
-                                </label>
-                            </div>
-                        </div>  
-
+                     <div class="form-row">
+                       <div class="form-group col-md-4">
+                            <label for="tipo">{{ __('imovel.tipo') }}</label>
+                            <select name="tipo" id="tipo" class="form-control">
+                                <option value="territorial" {{ 'territorial' ? 'selected' : '' }}>{{ __('territorial') }}</option>
+                                <option value="predial" {{ 'predial' ? 'selected' : '' }}>{{ __('predial') }}</option>
+                            </select>
+                       </div>
                         <div class="form-group col-md-8">
                             <label for="sequencial" class="control-label">{{ __('imovel.seq') }}</label>
                             <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq') }}" required>
                             {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
 
-                    </div><br> 
+                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="setor" class="control-label">{{ __('imovel.setor') }}</label>

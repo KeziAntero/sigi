@@ -30,8 +30,8 @@
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
-                        <th>{{ __('imovel.tpImovel') }}</th>
-                        <th>{{ __('imovel.seq') }}</th>
+                         <th>{{ __('imovel.seq') }}</th>
+                        <th>{{ __('imovel.tipo') }}</th>
                         <th>{{ __('imovel.setor') }}</th>
                         <th>{{ __('imovel.quadra') }}</th>
                         <th>{{ __('imovel.lote') }}</th>
@@ -46,8 +46,9 @@
                     @foreach($imoveis as $key => $imovel)
                     <tr>
                         <td class="text-center">{{ $imoveis->firstItem() + $key }}</td>
-                        <td>{{$imovel->tpImovel}}</td>
+                        
                         <td>{!! $imovel->seq_link !!}</td>
+                        <td>{{$imovel->tipo}}</td>
                         <td>{{ $imovel->setor }}</td>
                         <td>{{ $imovel->quadra }}</td>
                         <td>{{ $imovel->lote }}</td>
