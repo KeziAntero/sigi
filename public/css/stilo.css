@@ -30,13 +30,16 @@ body {
 }
 
 .leaflet-popup-content {
-  width: 200px !important;
+  width: 180px !important;
+  padding: 10px 0px 5px 15px; 
+
+ 
 }
 
 
 .btn-link-1 {
   
-  background-color: DodgerBlue; 
+  background-color: #0a0a81; 
   border: none; 
   color: #f1f1f1 !important; 
   padding: 8px; 
@@ -44,12 +47,12 @@ body {
   cursor: pointer; 
   border-radius: 3px;
   text-decoration: none;
-  
 }
 
 .btn-link-1:hover {
   background-color: RoyalBlue;
   text-decoration: none;
+  
 }
 
 .navbar-brand img{
@@ -68,7 +71,7 @@ body {
 .card footer {
   background-color:#060635 ;
   border-radius: 0 0 3px 3px;
-  padding: 1rem 0;
+  padding: 1.1rem 0;
   text-align: center;
   color: #ffffff;
   text-decoration: none;
@@ -135,7 +138,7 @@ svg:not(:root) {
 
 .locate-button {
   position: absolute;
-  top: 80px;
+  top: 20px;
   left: 10px;
   width: 26px;
   height: 26px;
@@ -231,4 +234,11 @@ svg:not(:root) {
 
 .leaflet-touch .leaflet-control-attribution, .leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
   box-shadow: none;
+}
+
+@media only screen and (max-width: 600px) {
+.locate-button {
+  position: absolute;
+  top: 80px;
+}
 }

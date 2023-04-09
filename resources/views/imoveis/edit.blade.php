@@ -28,6 +28,8 @@
                     <p>{{ $imovel->latitude }}</p>
                     <label class="control-label text-primary">{{ __('imovel.longitude') }}</label>
                     <p>{{ $imovel->longitude }}</p>
+                    <label class="control-label text-primary">{{ __('imovel.imagem') }}</label>
+                    <p>{{ $imovel->imagem }}</p>
                     {!! $errors->first('imovel_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                 </div>
                 <hr style="margin:0">
@@ -49,6 +51,11 @@
                 {{ csrf_field() }} {{ method_field('patch') }}
                 <div class="card-body">
                      <div class="form-row">
+                       <div class="form-group col-md-8">
+                            <label for="sequencial" class="control-label">{{ __('imovel.seq') }}</label>
+                            <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq') }}" required>
+                            {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div> 
                        <div class="form-group col-md-4">
                             <label for="tipo">{{ __('imovel.tipo') }}</label>
                             <select name="tipo" id="tipo" class="form-control">
@@ -56,12 +63,6 @@
                                 <option value="predial" {{ 'predial' ? 'selected' : '' }}>{{ __('predial') }}</option>
                             </select>
                        </div>
-                        <div class="form-group col-md-8">
-                            <label for="sequencial" class="control-label">{{ __('imovel.seq') }}</label>
-                            <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq') }}" required>
-                            {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                        </div>
-
                      </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">

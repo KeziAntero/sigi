@@ -17,23 +17,20 @@ class CreateImoveisTable extends Migration
         Schema::create('imoveis', function (Blueprint $table) {
             $table->id();
             $table->string('seq')->unique();
+            $table->string('tipo')->nullable();
             $table->string('setor')->nullable();
             $table->string('quadra')->nullable();
             $table->string('lote')->nullable();
             $table->foreignId('owner_id')->constrained();
             $table->string('latitude', 15)->nullable();
             $table->string('longitude', 15)->nullable();
-           
             $table->unsignedInteger('creator_id');
             
-
             #relacionamento apenas pela ID
             #$table->foreign('owner_id')->references('id')->on('owners')->onDelete('restrict');
             #a linha de baixo já faz o relacionamento com a id da tabela owners 
             #(Por isso é importante as tabelas estarem em ingles)
            
-           
-
             $table->timestamps();
 
             #$table->foreign('cpf_id')->references('id')->on('owners')->onDelete('restrict');
@@ -54,7 +51,5 @@ class CreateImoveisTable extends Migration
         Schema::dropIfExists('imoveis');
     }
 };
-Schema::table('imoveis', function (Blueprint $table) {
-    $table->string('tipo')->nullable();
-});
+
 

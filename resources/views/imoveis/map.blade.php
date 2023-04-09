@@ -19,7 +19,8 @@ integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7Nzww
 crossorigin=""/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-GEtoDpZ/eLlRZHbBc+85r+I1pBKb+D4vPdKX9C4vhJf3Z3z3v2tL5hJ+tG17tVcWAF+uG7fX9BNQrb2Jz0ZD1g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <link rel="stylesheet" href="css/stilo.css">
 
 <style>
@@ -189,7 +190,44 @@ map.addControl(new customControl());
     .then(function (response) {
         var marker = L.geoJSON(response.data, {
             pointToLayer: function(geoJsonPoint, latlng) {
-                return L.marker(latlng).bindPopup(function (layer) {
+              var setor = geoJsonPoint.properties.setor; // obtém o setor de imóvel a partir do campo "setor"
+              var iconUrl = 'img/marcador-de-mapa'; // define o ícone padrão
+            
+            // define o ícone com base no setor de imóvel
+            switch (setor) {
+                case '1':
+                    iconUrl = 'img/s1.png';
+                    break;
+                case '2':
+                    iconUrl = 'img/s2.png';
+                    break;
+                case '3':
+                    iconUrl = 'img/s3.png';
+                    break;
+                 case '4':
+                    iconUrl = 'img/s4.png';
+                    break;
+                case '5':
+                    iconUrl = 'img/s5.png';
+                    break;
+                case '6':
+                    iconUrl = 'img/s6.png';
+                    break;
+                case '7':
+                    iconUrl = 'img/s7.png';
+                    break;
+                
+                // adicione mais casos para cada setor de imóvel
+            }
+            
+            var icon = L.icon({
+                iconUrl: iconUrl,
+                iconSize: [37, 38],
+                iconAnchor: [16, 16],
+                popupAnchor: [0, -16]
+            });
+            
+               return L.marker(latlng, {icon: icon}).bindPopup(function (layer) {
                     return layer.feature.properties.map_popup_content;
                 });
             }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imovel;
 use App\Owner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ImovelController extends Controller
 {
@@ -19,8 +20,21 @@ class ImovelController extends Controller
         $this->authorize('manage_imovel');
 
         $imovelQuery = Imovel::query();
-        $imovelQuery->where('seq', 'like', '%'.request('q').'%');
-        #$imovelQuery->where('owner_name_owner', 'like', '%'.request('q').'%');
+        $search = request('q');
+
+        $imovelQuery->leftJoin('owners', 'owners.id', '=', 'imoveis.owner_id')
+            ->where(function ($query) use ($search) {
+                $query->where('imoveis.seq', 'like', '%'.$search.'%')
+                    ->orWhere('imoveis.tipo', 'like', '%'.$search.'%')
+                    ->orWhere('imoveis.setor', 'like', '%'.$search.'%')
+                    ->orWhere('imoveis.quadra', 'like', '%'.$search.'%')
+                    ->orWhere('imoveis.lote', 'like', '%'.$search.'%')
+                    ->orWhere('owners.name_owner', 'like', '%'.$search.'%')
+                    ->orWhere('owners.cpf', 'like', '%'.$search.'%');
+            });
+
+
+
         $imoveis = $imovelQuery->paginate(5);
 
           
@@ -37,8 +51,6 @@ class ImovelController extends Controller
         return view('imoveis.create');
 
     }
-
-  
     /**
 
      * @param  \Illuminate\Http\Request  $request
@@ -132,6 +144,7 @@ public function edit($id)
             'name_owner'=> 'required|max:60',
             'latitude'  => 'nullable|required_with:longitude|max:15',
             'longitude' => 'nullable|required_with:latitude|max:15',
+           
         ]);
 
         #detalhe, isso nao foi feito para alterar os dados do owner, apenas cadastrar ou usar um que já existe

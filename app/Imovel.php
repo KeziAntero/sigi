@@ -17,9 +17,10 @@ class Imovel extends Model
      */
    
     protected $fillable = [
-       'seq', 'tipo', 'setor','quadra','lote','owner_id','latitude','longitude','creator_id',
+       'seq', 'tipo', 'setor','quadra','lote','owner_id','latitude','longitude', 'creator_id',
     ];
      
+    
     /**
      * Get all of the Owner for the Imovel
      *
@@ -36,7 +37,7 @@ class Imovel extends Model
      * @var array
      */
     public $appends = [
-        'coordinate', 'map_popup_content',
+        'coordinate', 'map_popup_content'
     ];
 
     /**
@@ -87,11 +88,11 @@ class Imovel extends Model
     public function getMapPopupContentAttribute()
     {
         $mapPopupContent = '';
-        $mapPopupContent .= '<div class="title"><strong>'.__('imovel.seq').':</strong>'.$this->seq_link. '</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.tipo').':</strong>'.$this->tipo. '</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.setor').':</strong>'.$this->setor.'</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.quadra').':</strong>'.$this->quadra.'</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.lote').':</strong>'.$this->lote.'</div>';
+        $mapPopupContent .= '<div class="title"><strong>'.__('imovel.seq').': </strong>'.$this->seq_link. '</div>';
+        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.tipo').': </strong>'.$this->tipo. '</div>';
+        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.setor').': </strong>'.$this->setor.'</div>';
+        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.quadra').': </strong>'.$this->quadra.'</div>';
+        $mapPopupContent .= '<div class="my-2"><strong>'.__('imovel.lote').': </strong>'.$this->lote.'</div>';
             return $mapPopupContent;
     } 
     

@@ -5,7 +5,7 @@ return [
     'imovel'        => 'imóveis',
     'list'          => 'Lista de imóveis',
     'search'        => 'Buscar',
-    'search_text'   => 'Buscar imóvel...',
+    'search_text'   => 'Buscar...',
     'all'           => 'Todos os imóveis',
     'select'        => 'Selecione o imóvel',
     'detail'        => 'Detalhes do imóvel',
@@ -17,7 +17,7 @@ return [
     // Actions
     'create'         => 'Cadastrar imóvel',
     'created'        => 'Um novo imóvel foi criado.',
-    'show'           => 'Visualizar detalhes do imóvel',
+    'show'           => 'Visualizar',
     'edit'           => 'Editar imóvel',
     'update'         => 'Atualizar imóvel',
     'updated'        => 'Dados atualizados.',

@@ -24,8 +24,7 @@
             </div>
             <div class="card-footer">
                 @can('update', $imovel)
-        <a href="{{ route('imoveis.edit', $imovel->id) }}" id="edit-imovel-{{ $imovel->id }}" class="btn btn-warning">{{ __('imovel.edit') }} </a>
-
+                    <a href="{{ route('imoveis.edit', $imovel->id) }}" id="edit-imovel-{{ $imovel->id }}" class="btn btn-warning">{{ __('imovel.edit') }} </a>
                 @endcan
                 @if(auth()->check())
                     <a href="{{ route('imoveis.index') }}" class="btn btn-link">{{ __('imovel.back_to_index') }}</a>

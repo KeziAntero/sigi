@@ -3,6 +3,7 @@
 @section('title', __('imovel.list'))
 
 @section('content')
+
 <div class="mb-3">
     <br>
     <div class="float-right">
@@ -30,7 +31,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">{{ __('app.table_no') }}</th>
-                         <th>{{ __('imovel.seq') }}</th>
+                        <th>{{ __('imovel.seq') }}</th>
                         <th>{{ __('imovel.tipo') }}</th>
                         <th>{{ __('imovel.setor') }}</th>
                         <th>{{ __('imovel.quadra') }}</th>
@@ -39,6 +40,7 @@
                         <th>{{ __('imovel.name_owner') }}</th>
                         <th>{{ __('imovel.latitude') }}</th>
                         <th>{{ __('imovel.longitude') }}</th>
+                        
                     <th class="text-center">{{ __('app.action') }}</th>
                     </tr>
                 </thead>
@@ -47,7 +49,7 @@
                     <tr>
                         <td class="text-center">{{ $imoveis->firstItem() + $key }}</td>
                         
-                        <td>{!! $imovel->seq_link !!}</td>
+                        <td>{!!$imovel->seq_link !!}</td>
                         <td>{{$imovel->tipo}}</td>
                         <td>{{ $imovel->setor }}</td>
                         <td>{{ $imovel->quadra }}</td>
@@ -56,10 +58,18 @@
                         <td>{{ $imovel->owner->name_owner }}</td>
                         <td>{{ $imovel->latitude }}</td>
                         <td>{{ $imovel->longitude }}</td>
-
-                        <td class="text-center">
-                            <a href="{{ route('imoveis.show', $imovel->id) }}" id="show-imovel-{{ $imovel->id }}">{{ __('app.show') }}</a>
+                      
+                        <td>
+                           <a href="{{ route('imoveis.show', $imovel->id) }}" id="show-imovel-{{ $imovel->id }}" class="btn btn-primary">{{ __('imovel.show') }} </a>
+                           <a href="{{ route('imoveis.edit', $imovel->id) }}" id="edit-imovel-{{ $imovel->id }}" class="btn btn-warning">{{ __('imovel.edit') }} </a>
+                           
+                           <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+                                {{ csrf_field() }} {{ method_field('delete') }}
+                                <input name="imovel_id" type="hidden" value="{{ $imovel->id }}">
+                               <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete_confirm_button') }}</button>
+                            </form>
                         </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>

@@ -69,6 +69,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="images">{{ __('Adicione imagens do imóvel') }}</label>
+                        <input id="images" type="file" class="form-control{{ $errors->has('images') ? ' é inválido' : '' }}" name="images[]" multiple>
+                        {!! $errors->first('images', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    </div>
+
                     
                     <div id="mapid"></div>
                 </div>
