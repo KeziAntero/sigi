@@ -50,7 +50,7 @@
                     <tr>
                         <td class="text-center">{{ $imoveis->firstItem() + $key }}</td>
                         
-                        <td>{!!$imovel->seq_link !!}</td>
+                        <td>{{$imovel->seq}}</td>
                         <td>{{$imovel->tipo}}</td>
                         <td>{{ $imovel->setor }}</td>
                         <td>{{ $imovel->quadra }}</td>

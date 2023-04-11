@@ -202,7 +202,7 @@ map.addControl(new customControl());
                     iconUrl = 'img/s2.png';
                     break;
                 case '3':
-                    iconUrl = 'img/s22.png';
+                    iconUrl = 'img/s2.png';
                     break;
                  case '4':
                     iconUrl = 'img/s4.png';
