@@ -52,8 +52,8 @@
                 <div class="card-body">
                      <div class="form-row">
                        <div class="form-group col-md-8">
-                            <label for="sequencial" class="control-label">{{ __('imovel.seq') }}</label>
-                            <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq') }}" required>
+                            <label for="seq" class="control-label">{{ __('imovel.seq') }}</label>
+                            <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq', $imovel->seq) }}" required>
                             {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div> 
                        <div class="form-group col-md-4">

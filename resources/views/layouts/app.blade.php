@@ -14,8 +14,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Libre+Franklin:wght@100;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />  <!-- Styles -->
+    
     @yield('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/stilo.css') }}" rel="stylesheet">

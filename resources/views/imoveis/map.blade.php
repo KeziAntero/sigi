@@ -202,7 +202,7 @@ map.addControl(new customControl());
                     iconUrl = 'img/s2.png';
                     break;
                 case '3':
-                    iconUrl = 'img/s3.png';
+                    iconUrl = 'img/s22.png';
                     break;
                  case '4':
                     iconUrl = 'img/s4.png';
@@ -222,7 +222,7 @@ map.addControl(new customControl());
             
             var icon = L.icon({
                 iconUrl: iconUrl,
-                iconSize: [37, 38],
+                iconSize: [32, 32],
                 iconAnchor: [16, 16],
                 popupAnchor: [0, -16]
             });

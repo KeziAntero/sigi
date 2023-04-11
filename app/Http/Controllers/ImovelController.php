@@ -18,23 +18,24 @@ class ImovelController extends Controller
     public function index()
     {
         $this->authorize('manage_imovel');
+           $imovelQuery = Imovel::query();
+           $search = request('q');
 
-        $imovelQuery = Imovel::query();
-        $search = request('q');
+            $imovelQuery->leftJoin('owners', 'owners.id', '=', 'imoveis.owner_id')
+                ->select('imoveis.*', 'owners.id AS owner_id')
+                ->where(function ($query) use ($search) {
+                    $query->where('imoveis.seq', 'like', '%'.$search.'%')
+                        ->orWhere('imoveis.tipo', 'like', '%'.$search.'%')
+                        ->orWhere('imoveis.setor', 'like', '%'.$search.'%')
+                        ->orWhere('imoveis.quadra', 'like', '%'.$search.'%')
+                        ->orWhere('imoveis.lote', 'like', '%'.$search.'%')
+                        ->orWhere('owners.name_owner', 'like', '%'.$search.'%')
+                        ->orWhere('owners.cpf', 'like', '%'.$search.'%')
+                        ->orWhere('owners.id', 'like', '%'.$search.'%')
+                        ->orWhere('owner_id', 'like', '%'.$search.'%');
+                });
 
-        $imovelQuery->leftJoin('owners', 'owners.id', '=', 'imoveis.owner_id')
-            ->where(function ($query) use ($search) {
-                $query->where('imoveis.seq', 'like', '%'.$search.'%')
-                    ->orWhere('imoveis.tipo', 'like', '%'.$search.'%')
-                    ->orWhere('imoveis.setor', 'like', '%'.$search.'%')
-                    ->orWhere('imoveis.quadra', 'like', '%'.$search.'%')
-                    ->orWhere('imoveis.lote', 'like', '%'.$search.'%')
-                    ->orWhere('owners.name_owner', 'like', '%'.$search.'%')
-                    ->orWhere('owners.cpf', 'like', '%'.$search.'%');
-            });
-
-
-
+                   
         $imoveis = $imovelQuery->paginate(5);
 
           
@@ -132,7 +133,7 @@ public function edit($id)
 
          if (!auth()->user()->can('update', $imovel)) {
         abort(403);
-    }
+        }
         $imovelData = $request->validate([
             
             'seq'       => 'required|max:10',
@@ -160,7 +161,7 @@ public function edit($id)
         $imovel->update($imovelData);
 
         return redirect()->route('imoveis.index', $imovel)->with('success', 'Imóvel atualizado com sucesso.');
-}
+    }
     
 
     /**
@@ -171,7 +172,7 @@ public function edit($id)
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(Request $request, $id)
-{
+    {
     $imovel = Imovel::findOrFail($id);
     $this->authorize('delete', $imovel);
 
@@ -182,6 +183,6 @@ public function edit($id)
     }
 
     return back();
-}
+    }
 
 }

@@ -23,7 +23,8 @@
                     <div class="form-group">
                         <input placeholder="{{ __('imovel.search_text') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
                     </div>
-                    <input type="submit" value="{{ __('imovel.search') }}" class="btn btn-secondary">
+                  <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+
                     <a href="{{ route('imoveis.index') }}" class="btn btn-link">{{ __('app.reset') }}</a>
                 </form>
             </div>
@@ -60,13 +61,20 @@
                         <td>{{ $imovel->longitude }}</td>
                       
                         <td>
-                           <a href="{{ route('imoveis.show', $imovel->id) }}" id="show-imovel-{{ $imovel->id }}" class="btn btn-primary">{{ __('imovel.show') }} </a>
-                           <a href="{{ route('imoveis.edit', $imovel->id) }}" id="edit-imovel-{{ $imovel->id }}" class="btn btn-warning">{{ __('imovel.edit') }} </a>
-                           
-                           <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+                            <form method="GET" action="{{ route('imoveis.show', $imovel->id) }}" class="d-inline-block">
+                                 <button type="submit" class="btn btn-primary btn-sm" href="{{ route('imoveis.show', $imovel->id) }}" id="show-imovel-{{ $imovel->id }}">
+                                    <i class="fas fa-eye"></i></button>
+                            </form>
+
+                           <form method="GET" action="{{ route('imoveis.edit', $imovel->id) }}" class="d-inline-block">
+                                <button type="submit" class="btn btn-warning btn-sm" id="edit-imovel-{{ $imovel->id }}">
+                                    <i class="fas fa-edit"></i></button>
+                            </form>
+
+                            <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" class="d-inline-block" id="delete-imovel-{{ $imovel->id }}">
+                                 <button type="submit" form="delete-imovel-{{ $imovel->id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> {{ __('app.delete_confirm_button') }}</button>
                                 {{ csrf_field() }} {{ method_field('delete') }}
                                 <input name="imovel_id" type="hidden" value="{{ $imovel->id }}">
-                               <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete_confirm_button') }}</button>
                             </form>
                         </td>
                         
