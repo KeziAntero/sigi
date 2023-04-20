@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Owner extends Model
 {
     protected $fillable = [
@@ -23,5 +24,16 @@ class Owner extends Model
             #em vez de belongsTo (Pertence á) é hasMany (Tem muitos)
             return $this->hasMany(Imovel::class);
         }
-    
+   /**
+ * Get all imoveis associated with the given owner ID.
+ *
+ * @param  int  $ownerId
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
+public static function searchByCpf($cpf)
+{
+    return static::where('cpf', $cpf)->firstOrFail();
+}
+
+
 }

@@ -36,7 +36,7 @@ class ImovelController extends Controller
                 });
 
                    
-        $imoveis = $imovelQuery->paginate(5);
+                $imoveis = $imovelQuery->paginate(5);
 
           
         return view('imoveis.index', compact('imoveis'));
@@ -133,7 +133,7 @@ public function edit($id)
 
          if (!auth()->user()->can('update', $imovel)) {
         abort(403);
-        }
+    }
         $imovelData = $request->validate([
             
             'seq'       => 'required|max:10',
@@ -161,7 +161,7 @@ public function edit($id)
         $imovel->update($imovelData);
 
         return redirect()->route('imoveis.index', $imovel)->with('success', 'Imóvel atualizado com sucesso.');
-    }
+}
     
 
     /**
@@ -172,7 +172,7 @@ public function edit($id)
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(Request $request, $id)
-    {
+{
     $imovel = Imovel::findOrFail($id);
     $this->authorize('delete', $imovel);
 
@@ -183,6 +183,6 @@ public function edit($id)
     }
 
     return back();
-    }
+}
 
 }
