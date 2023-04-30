@@ -143,10 +143,13 @@ crossorigin=""/>
 <script>
     var mapCenter = [{{ $imovel->latitude }}, {{ $imovel->longitude }}];
     var map = L.map('mapid').setView(mapCenter, {{ config('leaflet.detail_zoom_level') }});
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  
+    L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+        id: 'mapbox.satellite',
+        accessToken: 'pk.eyJ1Ijoia2VsbDA0IiwiYSI6ImNsZG5pYmdzOTAxeDYzcXFyZHJoNHlzNmUifQ.Qb2-srEYdNcn0NuLksaNLA',
     }).addTo(map);
-    
+            
     var marker = L.marker(mapCenter).addTo(map);
     function updateMarker(lat, lng) {
         marker

@@ -72,7 +72,7 @@
                             </form>
 
                             <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" class="d-inline-block" id="delete-imovel-{{ $imovel->id }}">
-                                 <button type="submit" form="delete-imovel-{{ $imovel->id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> {{ __('app.delete_confirm_button') }}</button>
+                                <button type="submit" form="delete-imovel-{{ $imovel->id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> {{ __('app.delete_confirm_button') }}</button>
                                 {{ csrf_field() }} {{ method_field('delete') }}
                                 <input name="imovel_id" type="hidden" value="{{ $imovel->id }}">
                             </form>

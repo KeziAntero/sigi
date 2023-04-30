@@ -109,9 +109,11 @@ crossorigin=""/>
     var mapCenter = [{{ request('latitude', config('leaflet.map_center_latitude')) }}, {{ request('longitude', config('leaflet.map_center_longitude')) }}];
     var map = L.map('mapid').setView(mapCenter, {{ config('leaflet.zoom_level') }});
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+  attribution: 'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
+  id: 'mapbox.satellite',
+  accessToken: 'pk.eyJ1Ijoia2VsbDA0IiwiYSI6ImNsZG5pYmdzOTAxeDYzcXFyZHJoNHlzNmUifQ.Qb2-srEYdNcn0NuLksaNLA',
+  }).addTo(map);
 
     var marker = L.marker(mapCenter).addTo(map);
     function updateMarker(lat, lng) {
