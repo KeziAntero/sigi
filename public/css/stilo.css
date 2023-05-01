@@ -11,12 +11,27 @@ body {
   background-color: #f1f1f1;
 }
 
-
 #app {
   z-index: 99999;
   background: #ffffff;
   color: black;
+} 
   
+@media print {
+
+
+.form-inline {
+    display: none;
+  }
+.btn{
+  display: none;
+}
+
+}
+
+.d-inline-block{
+  
+
 }
 
 

@@ -3,125 +3,98 @@
 @section('title', __('imovel.edit'))
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        @if (request('action') == 'delete' && $imovel)
-        @can('delete', $imovel)
-            <div class="card">
-                <div class="card-header">{{ __('imovel.delete') }}</div>
-                <div class="card-body">
-                    <label class="control-label text-primary">{{ __('imovel.seq') }}</label>
-                    <p>{{ $imovel->seq}}</p>
-                    <label class="control-label text-primary">{{ __('imovel.tipo') }}</label>
-                    <p>{{ $imovel->tipo}}</p>
-                    <label class="control-label text-primary">{{ __('imovel.setor') }}</label>
-                    <p>{{ $imovel->setor}}</p>
-                    <label class="control-label text-primary">{{ __('imovel.quadra') }}</label>
-                    <p>{{ $imovel->quadra }}</p>
-                    <label class="control-label text-primary">{{ __('imovel.lote') }}</label>
-                    <p>{{ $imovel->lote}}</p>
-                    <label class="control-label text-primary">{{ __('imovel.cpf') }}</label>
-                    <p>{{ $imovel->owner->cpf}}</p>
-                    <label class="control-label text-primary">{{ __('imovel.name_owner') }}</label>
-                    <p>{{ $imovel->owner->name_owner}}</p>
-                    <label class="control-label text-primary">{{ __('imovel.latitude') }}</label>
-                    <p>{{ $imovel->latitude }}</p>
-                    <label class="control-label text-primary">{{ __('imovel.longitude') }}</label>
-                    <p>{{ $imovel->longitude }}</p>
-                    <label class="control-label text-primary">{{ __('imovel.imagem') }}</label>
-                    <p>{{ $imovel->imagem }}</p>
-                    {!! $errors->first('imovel_id', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                </div>
-                <hr style="margin:0">
-                <div class="card-body text-danger">{{ __('imovel.delete_confirm') }}</div>
-                <div class="card-footer">
-                    <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
-                        {{ csrf_field() }} {{ method_field('delete') }}
-                        <input name="imovel_id" type="hidden" value="{{ $imovel->id }}">
-                        <button type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
-                    </form>
-                    <a href="{{ route('imoveis.edit', $imovel) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
-                </div>
-            </div>
-        @endcan
-        @else
-        <div class="card">
-            <div class="card-header">{{ __('imovel.edit') }}</div>
-            <form method="POST" action="{{ route('imoveis.update', $imovel) }}" accept-charset="UTF-8">
-                {{ csrf_field() }} {{ method_field('patch') }}
-                <div class="card-body">
-                     <div class="form-row">
-                       <div class="form-group col-md-8">
-                            <label for="seq" class="control-label">{{ __('imovel.seq') }}</label>
-                            <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq', $imovel->seq) }}" required>
-                            {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                        </div> 
-                       <div class="form-group col-md-4">
-                            <label for="tipo">{{ __('imovel.tipo') }}</label>
-                            <select name="tipo" id="tipo" class="form-control">
-                                <option value="territorial" {{ 'territorial' ? 'selected' : '' }}>{{ __('territorial') }}</option>
-                                <option value="predial" {{ 'predial' ? 'selected' : '' }}>{{ __('predial') }}</option>
-                            </select>
-                       </div>
-                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="setor" class="control-label">{{ __('imovel.setor') }}</label>
-                            <input id="setor" type="number" class="form-control{{ $errors->has('setor') ? ' is-invalid' : '' }}" name="setor" value="{{ old('setor', $imovel->setor) }}" required>
-                            {!! $errors->first('setor', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="quadra" class="control-label">{{ __('imovel.quadra') }}</label>
-                            <input id="quadra" type="number" type="text" class="form-control{{ $errors->has('quadra') ? ' is-invalid' : '' }}" name="quadra" value="{{ old('quadra', $imovel->quadra) }}" required>
-                            {!! $errors->first('quadra', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="lote" class="control-label">{{ __('imovel.lote') }}</label>
-                            <input id="lote" type="number" class="form-control{{ $errors->has('lote') ? ' is-invalid' : '' }}" name="lote" value="{{ old('lote', $imovel->lote) }}" required>
-                            {!! $errors->first('lote', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cpf" class="control-label">{{ __('imovel.cpf') }}</label>
-                        <input id="cpf" type="text" class="form-control{{ $errors->has('cpf') ? ' é inválido' : '' }}" name="cpf" value="{{ old('cpf', $imovel->owner->cpf) }}" required>
-                        {!! $errors->first('cpf', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                    </div>
-                    <div class="form-group">
-                        <label for="name_owner" class="control-label">{{ __('imovel.name_owner') }}</label>
-                        <input id="name_owner" type="text" class="form-control{{ $errors->has('name_owner') ? ' é inválido' : '' }}" name="name_owner" value="{{ old('name_owner', $imovel->owner->name_owner) }}" required>
-                        {!! $errors->first('name_owner', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="latitude" class="control-label">{{ __('imovel.latitude') }}</label>
-                                <input id="latitude" type="text" class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" name="latitude" value="{{ old('latitude', $imovel->latitude) }}" required>
-                                {!! $errors->first('latitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="longitude" class="control-label">{{ __('imovel.longitude') }}</label>
-                                <input id="longitude" type="text" class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" name="longitude" value="{{ old('longitude', $imovel->longitude) }}" required>
-                                {!! $errors->first('longitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="mapid"></div>
-                </div>
-                <div class="card-footer">
-                    <input type="submit" value="{{ __('imovel.update') }}" class="btn btn-success">
-                    <a href="{{ route('imoveis.show', $imovel) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
-                    @can('delete', $imovel)
-                        <a href="{{ route('imoveis.edit', [$imovel, 'action' => 'delete']) }}" id="del-imovel-{{ $imovel->id }}" class="btn btn-danger float-right">{{ __('app.delete') }}</a>
-                    @endcan
-                </div>
-            </form>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+        
+            <div class="card">
+            <div class="card-header">{{ __('imovel.edit') }}</div>
+                <form method="POST" action="{{ route('imoveis.update', $imovel) }}" accept-charset="UTF-8">
+                    {{ csrf_field() }} {{ method_field('patch') }}
+                    <div class="card-body">
+                        <div class="form-row">
+                        <div class="form-group col-md-8">
+                                <label for="seq" class="control-label">{{ __('imovel.seq') }}</label>
+                                <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq', $imovel->seq) }}" required>
+                                {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            </div> 
+                        <div class="form-group col-md-4">
+                                <label for="tipo">{{ __('imovel.tipo') }}</label>
+                                <select name="tipo" id="tipo" class="form-control">
+                                    <option value="territorial" {{ 'territorial' ? 'selected' : '' }}>{{ __('territorial') }}</option>
+                                    <option value="predial" {{ 'predial' ? 'selected' : '' }}>{{ __('predial') }}</option>
+                                </select>
+                        </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="setor" class="control-label">{{ __('imovel.setor') }}</label>
+                                <input id="setor" type="number" class="form-control{{ $errors->has('setor') ? ' is-invalid' : '' }}" name="setor" value="{{ old('setor', $imovel->setor) }}" required>
+                                {!! $errors->first('setor', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="quadra" class="control-label">{{ __('imovel.quadra') }}</label>
+                                <input id="quadra" type="number" type="text" class="form-control{{ $errors->has('quadra') ? ' is-invalid' : '' }}" name="quadra" value="{{ old('quadra', $imovel->quadra) }}" required>
+                                {!! $errors->first('quadra', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="lote" class="control-label">{{ __('imovel.lote') }}</label>
+                                <input id="lote" type="number" class="form-control{{ $errors->has('lote') ? ' is-invalid' : '' }}" name="lote" value="{{ old('lote', $imovel->lote) }}" required>
+                                {!! $errors->first('lote', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cpf" class="control-label">{{ __('imovel.cpf') }}</label>
+                            <input id="cpf" type="text" class="form-control{{ $errors->has('cpf') ? ' é inválido' : '' }}" name="cpf" value="{{ old('cpf', $imovel->owner->cpf) }}" required>
+                            {!! $errors->first('cpf', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div>
+                        <div class="form-group">
+                            <label for="name_owner" class="control-label">{{ __('imovel.name_owner') }}</label>
+                            <input id="name_owner" type="text" class="form-control{{ $errors->has('name_owner') ? ' é inválido' : '' }}" name="name_owner" value="{{ old('name_owner', $imovel->owner->name_owner) }}" required>
+                            {!! $errors->first('name_owner', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="latitude" class="control-label">{{ __('imovel.latitude') }}</label>
+                                    <input id="latitude" type="text" class="form-control{{ $errors->has('latitude') ? ' is-invalid' : '' }}" name="latitude" value="{{ old('latitude', $imovel->latitude) }}" required>
+                                    {!! $errors->first('latitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="longitude" class="control-label">{{ __('imovel.longitude') }}</label>
+                                    <input id="longitude" type="text" class="form-control{{ $errors->has('longitude') ? ' is-invalid' : '' }}" name="longitude" value="{{ old('longitude', $imovel->longitude) }}" required>
+                                    {!! $errors->first('longitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="mapid"></div>
+
+                    </div>
+                    <div class="card-footer">
+                        <form method="POST" action="{{ route('imoveis.update', $imovel) }}">
+                            {{ csrf_field() }}
+                            {{ method_field('PUT') }}
+                            <input type="submit" value="{{ __('imovel.update') }}" class="btn btn-success">
+                            <a href="{{ route('imoveis.show', $imovel) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
+                        </form>
+                        @can('delete', $imovel)
+                            <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+                                {{ csrf_field() }} {{ method_field('delete') }}
+                                <input name="imovel_id" type="hidden" value="{{ $imovel->id }}">
+                                <button type="submit" class="btn btn-danger float-right">{{ __('app.delete_confirm_button') }}Excluir</button>
+                            </form>
+                        @endcan
+                    </div>
+                </form>
+ 
+
+            </div>
         </div>
     </div>
-</div>
-@endif
+
 @endsection
 
 @section('styles')
@@ -144,10 +117,12 @@ crossorigin=""/>
     var mapCenter = [{{ $imovel->latitude }}, {{ $imovel->longitude }}];
     var map = L.map('mapid').setView(mapCenter, {{ config('leaflet.detail_zoom_level') }});
   
-    L.tileLayer('https://api.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-        id: 'mapbox.satellite',
-        accessToken: 'pk.eyJ1Ijoia2VsbDA0IiwiYSI6ImNsZG5pYmdzOTAxeDYzcXFyZHJoNHlzNmUifQ.Qb2-srEYdNcn0NuLksaNLA',
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a> | Streets © <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+        id: 'mapbox/satellite-streets-v12', 
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1Ijoia2VsbDA0IiwiYSI6ImNsZG5pYmdzOTAxeDYzcXFyZHJoNHlzNmUifQ.Qb2-srEYdNcn0NuLksaNLA'
     }).addTo(map);
             
     var marker = L.marker(mapCenter).addTo(map);

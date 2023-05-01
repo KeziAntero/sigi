@@ -10,9 +10,9 @@ return [
     // Actions
     'show'           => 'Ver detalhes',
     'edit'           => 'Editar',
-    'delete'         => 'Deletar',
+    'delete'         => 'Excluir',
     'cancel'         => 'Cancelar',
     'reset'          => 'Redefinir',
-    'delete_confirm' => 'Tem certeza de excluir?',
+    'delete_confirm' => 'Tem certeza que deseja excluir o imóvel?',
     'delete_confirm_button' => '',
 ];

@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 class ImovelController extends Controller
 {
 
-   
     /**
      * 
      * @return \Illuminate\View\View
@@ -39,7 +38,7 @@ class ImovelController extends Controller
                 $imoveis = $imovelQuery->paginate(5);
 
           
-        return view('imoveis.index', compact('imoveis'));
+            return view('imoveis.index', compact('imoveis'));
     }
 
     /**
@@ -48,8 +47,7 @@ class ImovelController extends Controller
     public function create()
     {
         $this->authorize('create', new Imovel);
-      
-        return view('imoveis.create');
+          return view('imoveis.create');
 
     }
     /**
@@ -133,7 +131,7 @@ public function edit($id)
 
          if (!auth()->user()->can('update', $imovel)) {
         abort(403);
-    }
+        }
         $imovelData = $request->validate([
             
             'seq'       => 'required|max:10',
@@ -160,8 +158,9 @@ public function edit($id)
      
         $imovel->update($imovelData);
 
-        return redirect()->route('imoveis.index', $imovel)->with('success', 'Imóvel atualizado com sucesso.');
-}
+         return redirect()->route('imoveis.index', $imovel)->with('success', __('imovel.updated'));
+
+    }
     
 
     /**

@@ -12,19 +12,20 @@ return [
     'not_found'     => 'Imóvel não encontrado.',
     'empty'         => 'Imóvel está sem dados.',
     'back_to_show'  => 'Voltar aos detalhes do imóvel',
-    'back_to_index' => 'Voltar para a lista de imóveis',
+    'back_to_index' => 'Voltar',
+    'print'         => 'Imprimir',
 
     // Actions
     'create'         => 'Cadastrar imóvel',
     'created'        => 'Um novo imóvel foi criado.',
     'show'           => 'Visualizar',
     'edit'           => 'Editar',
-    'update'         => 'Atualizar imóvel',
+    'update'         => 'Atualizar',
     'updated'        => 'Dados atualizados.',
-    'delete'         => 'Delete',
-    'delete_confirm' => 'Tem certeza de excluir o imóvel?',
-    'deleted'        => 'Imóvel deletado com sucesso.',
-    'undeleted'      => 'Imóvel não pôde ser excluído.',
+    'delete'         => 'Excluir',
+    'delete_confirm' => 'Tem certeza que deseja excluir o imóvel?',
+    'deleted'        => 'Imóvel excluido com sucesso!',
+    'undeleted'      => 'Imóvel não pôde ser excluído',
     'undeleteable'   => 'Dados do imóvel não podem ser excluídos.',
 
     // Attributes
