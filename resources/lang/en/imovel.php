@@ -17,14 +17,14 @@ return [
 
     // Actions
     'create'         => 'Cadastrar imóvel',
-    'created'        => 'Um novo imóvel foi criado.',
+    'created'        => 'Imóvel criado com sucesso.',
     'show'           => 'Visualizar',
     'edit'           => 'Editar',
     'update'         => 'Atualizar',
-    'updated'        => 'Dados atualizados.',
+    'updated'        => 'Imóvel atualizado com sucesso.',
     'delete'         => 'Excluir',
     'delete_confirm' => 'Tem certeza que deseja excluir o imóvel?',
-    'deleted'        => 'Imóvel excluido com sucesso!',
+    'deleted'        => 'IImóvel excluído com sucesso.',
     'undeleted'      => 'Imóvel não pôde ser excluído',
     'undeleteable'   => 'Dados do imóvel não podem ser excluídos.',
 

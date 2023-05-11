@@ -6,7 +6,8 @@
 
     <div class="mb-3">
         <br>
-       <div class="float-right">
+         @include('layouts/flash-message')
+        <div class="float-right">
             @can('create', new App\Imovel)
                 <a href="{{ route('imoveis.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> {{ __('imovel.create') }}</a>
             @endcan
@@ -21,7 +22,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <form method="GET" action="" accept-charset="UTF-8" class="form-inline">
+                    
+                    <form method="GET" action="{{ route('imoveis.index') }}" accept-charset="UTF-8" class="form-inline">
                         <div class="form-group">
                             <input placeholder="{{ __('imovel.search_text') }}" name="q" type="text" id="q" class="form-control mx-sm-2" value="{{ request('q') }}">
                         </div>
@@ -40,30 +42,26 @@
                             <th>{{ __('imovel.lote') }}</th>
                             <th>{{ __('imovel.cpf') }}</th>
                             <th>{{ __('imovel.name_owner') }}</th>
-                           
-                            
-                        <th class="text-center">{{ __('app.action') }}</th>
+                            <th class="text-center">{{ __('app.action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($imoveis as $key => $imovel)
-                        <tr>
-                            <td class="text-center">{{ $imoveis->firstItem() + $key }}</td>
-                            
-                                <td>{{$imovel->seq}}</td>
-                                <td>{{$imovel->tipo}}</td>
+                            <tr>
+                                <td class="text-center">{{ $imoveis->firstItem() + $key }}</td>
+                                <td>{{ $imovel->seq }}</td>
+                                <td>{{ $imovel->tipo }}</td>
                                 <td>{{ $imovel->setor }}</td>
                                 <td>{{ $imovel->quadra }}</td>
                                 <td>{{ $imovel->lote }}</td>
                                 <td>{{ $imovel->owner->cpf }}</td>
                                 <td>{{ $imovel->owner->name_owner }}</td>
-                                
-                        
-                            <td class="text-center">
-                                <form method="GET" action="{{ route('imoveis.show', $imovel->id) }}" class="d-inline-block">
-                                    <button type="submit" class="btn btn-primary btn-sm" href="{{ route('imoveis.show', $imovel->id) }}" id="show-imovel-{{ $imovel->id }}">
-                                        <i class="fas fa-eye"></i></button>
-                                </form>
+                                <td class="text-center">
+                                    <form method="GET" action="{{ route('imoveis.show', $imovel->id) }}" class="d-inline-block">
+                                        <button type="submit" class="btn btn-primary btn-sm" id="show-imovel-{{ $imovel->id }}">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </form>
 
                                 <form method="GET" action="{{ route('imoveis.edit', $imovel->id) }}" class="d-inline-block">
                                     <button type="submit" class="btn btn-warning btn-sm" id="edit-imovel-{{ $imovel->id }}">

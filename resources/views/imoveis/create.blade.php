@@ -8,6 +8,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('imovel.create') }}</div>
+                
                 <form method="POST" action="{{ route('imoveis.store') }}" accept-charset="UTF-8">
                     {{ csrf_field() }}
                     <div class="card-body">
@@ -87,6 +88,8 @@
             </div>
         </div>
     </div>
+  
+
 @endsection
 
 @section('styles')

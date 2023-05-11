@@ -29,9 +29,20 @@ body {
 
 }
 
-.d-inline-block{
-  
+.alert.alert-success {
+    text-align: center;
+}
 
+.alert.alert-success .message-text {
+    font-size: 18px;
+}
+
+.alert.alert-danger {
+    text-align: center;
+}
+
+.alert.alert-danger .message-text {
+    font-size: 18px;
 }
 
 

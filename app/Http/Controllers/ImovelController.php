@@ -5,41 +5,42 @@ namespace App\Http\Controllers;
 use App\Imovel;
 use App\Owner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Models\Mensagem;
+use Illuminate\Support\Facades\Session;
 
 class ImovelController extends Controller
 {
-
-    /**
+     /**
      * 
      * @return \Illuminate\View\View
      */
     public function index()
-    {
-        $this->authorize('manage_imovel');
-           $imovelQuery = Imovel::query();
-           $search = request('q');
+{
+    $this->authorize('manage_imovel');
 
-            $imovelQuery->leftJoin('owners', 'owners.id', '=', 'imoveis.owner_id')
-                ->select('imoveis.*', 'owners.id AS owner_id')
-                ->where(function ($query) use ($search) {
-                    $query->where('imoveis.seq', 'like', '%'.$search.'%')
-                        ->orWhere('imoveis.tipo', 'like', '%'.$search.'%')
-                        ->orWhere('imoveis.setor', 'like', '%'.$search.'%')
-                        ->orWhere('imoveis.quadra', 'like', '%'.$search.'%')
-                        ->orWhere('imoveis.lote', 'like', '%'.$search.'%')
-                        ->orWhere('owners.name_owner', 'like', '%'.$search.'%')
-                        ->orWhere('owners.cpf', 'like', '%'.$search.'%')
-                        ->orWhere('owners.id', 'like', '%'.$search.'%')
-                        ->orWhere('owner_id', 'like', '%'.$search.'%');
-                });
+    $imovelQuery = Imovel::query();
 
-                   
-                $imoveis = $imovelQuery->paginate(5);
+    $search = request('q');
 
-          
-            return view('imoveis.index', compact('imoveis'));
-    }
+    $imovelQuery->leftJoin('owners', 'owners.id', '=', 'imoveis.owner_id')
+        ->select('imoveis.*', 'owners.id AS owner_id')
+        ->where(function ($query) use ($search) {
+            $query->where('imoveis.seq', 'like', '%'.$search.'%')
+                ->orWhere('imoveis.tipo', 'like', '%'.$search.'%')
+                ->orWhere('imoveis.setor', 'like', '%'.$search.'%')
+                ->orWhere('imoveis.quadra', 'like', '%'.$search.'%')
+                ->orWhere('imoveis.lote', 'like', '%'.$search.'%')
+                ->orWhere('owners.name_owner', 'like', '%'.$search.'%')
+                ->orWhere('owners.cpf', 'like', '%'.$search.'%')
+                ->orWhere('owners.id', 'like', '%'.$search.'%')
+                ->orWhere('owner_id', 'like', '%'.$search.'%');
+        });
+
+    $imoveis = $imovelQuery->paginate(5);
+    $mensagens = Session::get('mensagens', []);
+    return view('imoveis.index', compact('imoveis', 'mensagens'));
+}
+
 
     /**
      * @return \Illuminate\View\View
@@ -51,7 +52,6 @@ class ImovelController extends Controller
 
     }
     /**
-
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Routing\Redirector
      */
@@ -66,27 +66,26 @@ class ImovelController extends Controller
             'quadra'    => 'required|max:05',
             'lote'      => 'required|max:05',
             'cpf'       => 'required|max:15',
-            'name_owner'=> 'required|max:60',
+            'name_owner' => 'required|max:60',
             'latitude'  => 'nullable|required_with:longitude|max:15',
             'longitude' => 'nullable|required_with:latitude|max:15',
-
         ]);
 
-        
         $newImovel['creator_id'] = auth()->id();
 
-        #aqui está o role, antes eu verifico se aquele owner para aquele CPF já existe
-        #se não existir, cria, se existir apenas usa o que já existe
         $owner = Owner::where('cpf', $newImovel['cpf'])->first();
         if ($owner == null) {
             $owner = Owner::create($newImovel);
         }
-        #uma vez criado ou buscou do banco, seto a id no imovel para ser salvo
         $newImovel['owner_id'] = $owner->id;
 
         $imovel = Imovel::create($newImovel);
 
-        return redirect()->route('imoveis.index', $imovel);
+        if ($imovel) {
+            return redirect()->route('imoveis.index')->with('success', 'Imóvel criado com sucesso.');
+        } else {
+            return redirect()->route('imoveis.create')->with('error', 'Erro ao criar imóvel.');
+        }
     }
 
     /**
@@ -107,17 +106,13 @@ class ImovelController extends Controller
      * @param  integer  $id
      * @return \Illuminate\View\View
      */
-public function edit($id)
-{
+    public function edit($id)
+    {
     
     $imovel = Imovel::findOrFail($id);
-
-   
     $this->authorize('update', $imovel);
-
-    
-    return view('imoveis.edit', compact('imovel'));
-}
+        return view('imoveis.edit', compact('imovel'));
+    }
     /**
      * 
      *
@@ -125,63 +120,58 @@ public function edit($id)
      * @param  integer  $id
      * @return \Illuminate\Routing\Redirector
      */
+
     public function update(Request $request, $id)
     {
         $imovel = Imovel::findOrFail($id);
 
-         if (!auth()->user()->can('update', $imovel)) {
-        abort(403);
-        }
-        $imovelData = $request->validate([
-            
-            'seq'       => 'required|max:10',
-            'tipo'      => 'required|in:territorial,predial',
-            'setor'     => 'required|max:02',
-            'quadra'    => 'required|max:05',
-            'lote'      => 'required|max:05',
-            'cpf'       => 'required|max:15',
-            'name_owner'=> 'required|max:60',
-            'latitude'  => 'nullable|required_with:longitude|max:15',
+        $validatedData = $request->validate([
+            'seq' => 'required|max:10',
+            'tipo' => 'required|in:territorial,predial',
+            'setor' => 'required|max:02',
+            'quadra' => 'required|max:05',
+            'lote' => 'required|max:05',
+            'cpf' => 'required|max:15',
+            'name_owner' => 'required|max:60',
+            'latitude' => 'nullable|required_with:longitude|max:15',
             'longitude' => 'nullable|required_with:latitude|max:15',
-           
         ]);
 
-        #detalhe, isso nao foi feito para alterar os dados do owner, apenas cadastrar ou usar um que já existe
-        #aqui está o role, antes eu verifico se aquele owner para aquele CPF já existe
-        #se não existir, cria, se existir apenas usa o que já existe
-        $owner = Owner::where('cpf', $imovelData['cpf'])->first();
-        if ($owner == null) {
-            $owner = Owner::create($imovelData);
+        $owner = Owner::firstOrCreate(['cpf' => $validatedData['cpf']], $validatedData);
+
+        $imovel = Imovel::findOrFail($id);
+
+        $imovel->update(['owner_id' => $owner->id] + $validatedData);
+
+        if ($imovel) {
+            return redirect()->route('imoveis.index', $imovel)->with('success', 'Imóvel atualizado com sucesso.');
+        } else {
+            return redirect()->route('imoveis.edit', $id)->with('error', 'Erro ao atualizar imóvel.');
         }
-        
-        $newImovel['owner_id'] = $owner->id;
-     
-        $imovel->update($imovelData);
-
-         return redirect()->route('imoveis.index', $imovel)->with('success', __('imovel.updated'));
-
     }
-    
+
 
     /**
      * 
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  integer  $id
-     * @return \Illuminate\Routing\Redirector
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
-{
-    $imovel = Imovel::findOrFail($id);
-    $this->authorize('delete', $imovel);
+    {
+        $imovel = Imovel::findOrFail($id);
+        $this->authorize('delete', $imovel);
 
-    $request->validate(['imovel_id' => 'required']);
+        $request->validate(['imovel_id' => 'required']);
 
-    if ($request->get('imovel_id') == $imovel->id && $imovel->delete()) {
-        return redirect()->route('imoveis.index');
+        if ($imovel->delete()) {
+            return redirect()->route('imoveis.index')->with('success', 'Imóvel excluído com sucesso.');
+        } else {
+            return redirect()->route('imoveis.index')->with('error', 'Erro ao excluir imóvel.');
+        }
     }
 
-    return back();
-}
+
 
 }
