@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Imovel;
 use App\Owner;
 use Illuminate\Http\Request;
-use App\Models\Mensagem;
 use Illuminate\Support\Facades\Session;
 
 class ImovelController extends Controller

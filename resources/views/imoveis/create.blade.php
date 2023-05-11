@@ -15,7 +15,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-8">
                                 <label for="seq" class="control-label">{{ __('imovel.seq') }}</label>
-                                <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq') }}" required>
+                                <input id="seq" type="text" oninput="mascara(this)" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq') }}" required>
                                 {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                             </div>
 
@@ -47,7 +47,7 @@
                         
                         <div class="form-group">
                             <label for="cpf" class="control-label">{{ __('imovel.cpf') }}</label>
-                            <input id="cpf" type="text" class="form-control{{ $errors->has('cpf') ? ' é inválido' : '' }}" name="cpf" value="{{ old('owner.cpf') }}" required>
+                            <input id="cpf" type="text" oninput="mascara(this)" class="form-control{{ $errors->has('cpf') ? ' é inválido' : '' }}" name="cpf" value="{{ old('owner.cpf') }}" required>
                             {!! $errors->first('cpf', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
                         <div class="form-group">
@@ -103,6 +103,8 @@
 @endsection
 
 @push('scripts')
+
+   
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
@@ -141,6 +143,35 @@
         $('#latitude').on('input', updateMarkerByInputs);
         $('#longitude').on('input', updateMarkerByInputs);
 
-    
+
+        //Aplica a máscara de seq e CPF no campo de input
+
+        function mascara(i) {
+            var v = i.value;
+
+            if (isNaN(v[v.length - 1])) {
+                i.value = v.substring(0, v.length - 1);
+                return;
+            }
+
+            if (i.id === 'cpf') {
+                i.setAttribute('maxlength', '14');
+                if (v.length === 3 || v.length === 7) {
+                    i.value += '.';
+                }
+                if (v.length === 11) {
+                    i.value += '-';
+                }
+            } else if (i.id === 'seq') {
+                i.setAttribute('maxlength', '9');
+                if (v.length === 7) {
+                    i.value += '.';
+                }
+                if (v.length === 8) {
+                    i.value += '';
+                }
+            }
+        }
+
     </script>
 @endpush
