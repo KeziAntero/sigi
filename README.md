@@ -1,6 +1,6 @@
 # sigi
 
-Sistema de Gerenciamento de Imobiliário" (SIGI) e foi desenvolvido como trabalho de conclusão do curso de Análise e Desenvolvimento de Sistemas do Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte (IFRN).
+O Sistema de Gerenciamento de Imobiliário (SIGI) foi desenvolvido como trabalho de conclusão do curso de Análise e Desenvolvimento de Sistemas no Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte (IFRN).
 
 Sobre o projeto
 
