@@ -5,7 +5,7 @@ return [
     'table_no'          => '***',
     'total'             => 'Total de',
     'action'            => 'Ações',
-    'show_detail_title' => 'Ver :nome :tipo detalhe',
+    'show_detail_title' => 'Detalhes do imóvel',
 
     // Actions
     'show'           => 'Ver detalhes',

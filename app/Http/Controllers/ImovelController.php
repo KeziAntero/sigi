@@ -35,7 +35,7 @@ class ImovelController extends Controller
                 ->orWhere('owner_id', 'like', '%'.$search.'%');
         });
 
-    $imoveis = $imovelQuery->paginate(5);
+    $imoveis = $imovelQuery->paginate(10);
     $mensagens = Session::get('mensagens', []);
     return view('imoveis.index', compact('imoveis', 'mensagens'));
 }

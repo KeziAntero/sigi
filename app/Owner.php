@@ -25,7 +25,7 @@ class Owner extends Model
             return $this->hasMany(Imovel::class);
         }
    /**
- * Get all imoveis associated with the given owner ID.
+ * 
  *
  * @param  int  $ownerId
  * @return \Illuminate\Database\Eloquent\Collection

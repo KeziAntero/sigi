@@ -190,11 +190,10 @@
       .then(function (response) {
           var marker = L.geoJSON(response.data, {
               pointToLayer: function(geoJsonPoint, latlng) {
-                var setor = geoJsonPoint.properties.setor; // obtém o setor de imóvel a partir do campo "setor"
-                var iconUrl = 'img/marcador-de-mapa'; // define o ícone padrão
+                var setor = geoJsonPoint.properties.setor; 
+                var iconUrl = 'img/marcador-de-mapa'; 
               
-              // define o ícone com base no setor de imóvel
-              switch (setor) {
+                 switch (setor) {
                   case '1':
                       iconUrl = 'img/s1.png';
                       break;
@@ -217,7 +216,7 @@
                       iconUrl = 'img/s7.png';
                       break;
                   
-                  // adicione mais casos para cada setor de imóvel
+                  
               }
               
               var icon = L.icon({
