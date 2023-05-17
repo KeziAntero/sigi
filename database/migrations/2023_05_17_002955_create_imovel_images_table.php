@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('owners', function (Blueprint $table) {
+        Schema::create('imovel_images', function (Blueprint $table) {
             $table->id();
-            $table->string('cpf')->unique();
-            $table->string('name_owner')->nullable();
+            $table->unsignedBigInteger('imovel_id');
+            $table->string('path');
             $table->timestamps();
+
+            $table->foreign('imovel_id')->references('id')->on('imoveis')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('owners');
+        Schema::dropIfExists('imovel_images');
     }
 };

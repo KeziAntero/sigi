@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">{{ __('imovel.create') }}</div>
                 
-                <form method="POST" action="{{ route('imoveis.store') }}" accept-charset="UTF-8">
+                <form method="POST" action="{{ route('imoveis.store') }}" accept-charset="UTF-8" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="card-body">
                         <div class="form-row">
@@ -72,10 +72,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="images">{{ __('Adicione imagens do imóvel') }}</label>
+                            <label for="images">{{ __('imovel.images') }}</label>
                             <input id="images" type="file" class="form-control{{ $errors->has('images') ? ' é inválido' : '' }}" name="images[]" multiple>
                             {!! $errors->first('images', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
+
 
                         
                         <div id="mapid"></div>

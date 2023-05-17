@@ -21,6 +21,10 @@ class Imovel extends Model
     ];
      
     
+    public function images()
+    {
+        return $this->hasMany(ImovelImage::class);
+    }
     /**
      * Get all of the Owner for the Imovel
      *

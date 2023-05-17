@@ -9,7 +9,7 @@
         
             <div class="card">
             <div class="card-header">{{ __('imovel.edit') }}</div>
-                <form method="POST" action="{{ route('imoveis.update', $imovel) }}" accept-charset="UTF-8">
+                <form action="{{ route('imoveis.update', $imovel->id) }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }} {{ method_field('patch') }}
                     <div class="card-body">
                         <div class="form-row">
@@ -68,6 +68,19 @@
                                     {!! $errors->first('longitude', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                                 </div>
                             </div>
+                        </div>
+@csrf
+                        <div class="form-group">
+                            <label for="images">{{ __('imovel.images') }}</label>
+
+                            @foreach ($imovel->images as $image)
+                                <div class="existing-image">
+                                    <img src="{{ asset($image->path) }}" alt="Imagem do imóvel">
+                                </div>
+                            @endforeach
+
+                            <input id="images" type="file" class="form-control{{ $errors->has('images') ? ' is-invalid' : '' }}" name="images[]" multiple>
+                            {!! $errors->first('images', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
 
                         <div id="mapid"></div>

@@ -6,6 +6,7 @@ use App\Imovel;
 use App\Owner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Http\UploadedFile;
 
 class ImovelController extends Controller
 {
@@ -54,38 +55,50 @@ class ImovelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
-    {
-        $this->authorize('create', new Imovel);
+   public function store(Request $request)
+{
+    $this->authorize('create', new Imovel);
 
-        $newImovel = $request->validate([
-            'seq'       => 'required|max:10',
-            'tipo'      => 'required|in:territorial,predial',
-            'setor'     => 'required|max:02',
-            'quadra'    => 'required|max:05',
-            'lote'      => 'required|max:05',
-            'cpf'       => 'required|max:15',
-            'name_owner' => 'required|max:60',
-            'latitude'  => 'nullable|required_with:longitude|max:15',
-            'longitude' => 'nullable|required_with:latitude|max:15',
-        ]);
+    $newImovel = $request->validate([
+        'seq'       => 'required|max:10',
+        'tipo'      => 'required|in:territorial,predial',
+        'setor'     => 'required|max:02',
+        'quadra'    => 'required|max:05',
+        'lote'      => 'required|max:05',
+        'cpf'       => 'required|max:15',
+        'name_owner' => 'required|max:60',
+        'latitude'  => 'nullable|required_with:longitude|max:15',
+        'longitude' => 'nullable|required_with:latitude|max:15',
+    ]);
 
-        $newImovel['creator_id'] = auth()->id();
+    $newImovel['creator_id'] = auth()->id();
 
-        $owner = Owner::where('cpf', $newImovel['cpf'])->first();
-        if ($owner == null) {
-            $owner = Owner::create($newImovel);
-        }
-        $newImovel['owner_id'] = $owner->id;
-
-        $imovel = Imovel::create($newImovel);
-
-        if ($imovel) {
-            return redirect()->route('imoveis.index')->with('success', 'Imóvel criado com sucesso.');
-        } else {
-            return redirect()->route('imoveis.create')->with('error', 'Erro ao criar imóvel.');
-        }
+    $owner = Owner::where('cpf', $newImovel['cpf'])->first();
+    if ($owner == null) {
+        $owner = Owner::create($newImovel);
     }
+    $newImovel['owner_id'] = $owner->id;
+
+    $imovel = Imovel::create($newImovel);
+
+    if ($imovel) {
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            foreach ($images as $image) {
+                if ($image->isValid()) {
+                    $extension = $image->extension();
+                    $imageName = md5($image->getClientOriginalName() . strtotime("now")) . "." . $extension;
+                    $image->storeAs('public/fachadas', $imageName);
+                    $imovel->images()->create(['path' => 'fachadas/'.$imageName]);
+                }
+            }
+        }
+
+        return redirect()->route('imoveis.index')->with('success', 'Imóvel criado com sucesso.');
+    } else {
+        return redirect()->route('imoveis.create')->with('error', 'Erro ao criar imóvel.');
+    }
+}
 
     /**
      * 

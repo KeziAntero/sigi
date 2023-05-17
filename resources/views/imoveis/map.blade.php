@@ -215,13 +215,12 @@
                   case '7':
                       iconUrl = 'img/s7.png';
                       break;
-                  
-                  
+
               }
               
               var icon = L.icon({
                   iconUrl: iconUrl,
-                  iconSize: [32, 32],
+                  iconSize: [25, 35],
                   iconAnchor: [16, 16],
                   popupAnchor: [0, -16]
               });
