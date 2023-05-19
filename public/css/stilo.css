@@ -65,10 +65,13 @@ body {
 
 @media print {
 
-
 .form-inline {
     display: none;
   }
+
+.alert {
+  display: none;
+}  
 .btn{
   display: none;
 }

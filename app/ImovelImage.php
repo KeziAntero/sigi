@@ -13,8 +13,15 @@ class ImovelImage extends Model
         'imovel_id', 'path',
     ];
 
+
+    public function images()
+    {
+        return $this->hasMany(ImovelImage::class);
+    }
+
     public function imovel()
     {
         return $this->belongsTo(Imovel::class);
     }
+
 }

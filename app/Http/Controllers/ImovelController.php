@@ -6,7 +6,9 @@ use App\Imovel;
 use App\Owner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Http\UploadedFile;
+
+use Illuminate\Support\Facades\Storage;
+
 
 class ImovelController extends Controller
 {
@@ -146,20 +148,33 @@ class ImovelController extends Controller
             'name_owner' => 'required|max:60',
             'latitude' => 'nullable|required_with:longitude|max:15',
             'longitude' => 'nullable|required_with:latitude|max:15',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Regras de validação para a imagem
         ]);
 
         $owner = Owner::firstOrCreate(['cpf' => $validatedData['cpf']], $validatedData);
 
-        $imovel = Imovel::findOrFail($id);
-
         $imovel->update(['owner_id' => $owner->id] + $validatedData);
 
-        if ($imovel) {
-            return redirect()->route('imoveis.index', $imovel)->with('success', 'Imóvel atualizado com sucesso.');
-        } else {
-            return redirect()->route('imoveis.edit', $id)->with('error', 'Erro ao atualizar imóvel.');
+        // Verifica se foi enviada uma nova imagem
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('fachadas', 'public');
+
+            // Remove a imagem anterior se existir
+            if ($imovel->images()->count() > 0) {
+                $previousImagePath = $imovel->images()->first()->path;
+                Storage::disk('public')->delete($previousImagePath);
+                $imovel->images()->delete();
+            }
+
+            // Cria uma nova imagem para o imóvel
+            $imovel->images()->create([
+                'path' => $imagePath,
+            ]);
         }
+
+        return redirect()->route('imoveis.index')->with('success', 'Imóvel atualizado com sucesso.');
     }
+
 
 
     /**
