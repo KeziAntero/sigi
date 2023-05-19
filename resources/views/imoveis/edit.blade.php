@@ -13,36 +13,50 @@
                     {{ csrf_field() }} {{ method_field('patch') }}
                     <div class="card-body">
                         <div class="form-row">
-                        <div class="form-group col-md-8">
-                                <label for="seq" class="control-label">{{ __('imovel.seq') }}</label>
-                                <input id="seq" type="number" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq', $imovel->seq) }}" required>
-                                {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
-                            </div> 
-                        <div class="form-group col-md-4">
-                                <label for="tipo">{{ __('imovel.tipo') }}</label>
-                                <select name="tipo" id="tipo" class="form-control">
-                                    <option value="territorial" {{ 'territorial' ? 'selected' : '' }}>{{ __('territorial') }}</option>
-                                    <option value="predial" {{ 'predial' ? 'selected' : '' }}>{{ __('predial') }}</option>
-                                </select>
+                            <div class="form-group col-md-8">
+                                <label>{{ __('imovel.tipo') }}</label>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="tipo_territorial">
+                                        <input type="radio" name="tipo" id="tipo_territorial" value="territorial" class="form-check-input form-check-inline" {{ old('tipo', $imovel->tipo) == 'territorial' ? 'checked' : '' }}>
+                                        {{ __('Territorial') }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label" for="tipo_predial">
+                                        <input type="radio" name="tipo" id="tipo_predial" value="predial" class="form-check-input form-check-inline" {{ old('tipo', $imovel->tipo) == 'predial' ? 'checked' : '' }}>
+                                        {{ __('Predial') }}
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        </div>
+
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
+                                <label for="seq" class="control-label">{{ __('imovel.seq') }}</label>
+                                <input id="seq" type="text" oninput="mascara(this)" class="form-control{{ $errors->has('seq') ? ' é inválido' : '' }}" name="seq" value="{{ old('seq', $imovel->seq) }}" required>
+                                {!! $errors->first('seq', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            </div>
+
+                            <div class="form-group col-md-2">
                                 <label for="setor" class="control-label">{{ __('imovel.setor') }}</label>
-                                <input id="setor" type="number" class="form-control{{ $errors->has('setor') ? ' is-invalid' : '' }}" name="setor" value="{{ old('setor', $imovel->setor) }}" required>
+                                <input id="setor" type="number" class="form-control{{ $errors->has('setor') ? ' é inválido' : '' }}" name="setor" value="{{ old('setor', $imovel->setor) }}" required>
                                 {!! $errors->first('setor', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                             </div>
-                            <div class="form-group col-md-4">
+
+                            <div class="form-group col-md-2">
                                 <label for="quadra" class="control-label">{{ __('imovel.quadra') }}</label>
-                                <input id="quadra" type="number" type="text" class="form-control{{ $errors->has('quadra') ? ' is-invalid' : '' }}" name="quadra" value="{{ old('quadra', $imovel->quadra) }}" required>
+                                <input id="quadra" type="number" class="form-control{{ $errors->has('quadra') ? ' é inválido' : '' }}" name="quadra" value="{{ old('quadra', $imovel->quadra) }}" required>
                                 {!! $errors->first('quadra', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                             </div>
-                            <div class="form-group col-md-4">
+
+                            <div class="form-group col-md-2">
                                 <label for="lote" class="control-label">{{ __('imovel.lote') }}</label>
-                                <input id="lote" type="number" class="form-control{{ $errors->has('lote') ? ' is-invalid' : '' }}" name="lote" value="{{ old('lote', $imovel->lote) }}" required>
+                                <input id="lote" type="number" class="form-control{{ $errors->has('lote') ? ' é inválido' : '' }}" name="lote" value="{{ old('lote', $imovel->lote) }}" required>
                                 {!! $errors->first('lote', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                             </div>
-                        </div>
+
+                        </div> 
+                        
                         <div class="form-group">
                             <label for="cpf" class="control-label">{{ __('imovel.cpf') }}</label>
                             <input id="cpf" type="text" class="form-control{{ $errors->has('cpf') ? ' é inválido' : '' }}" name="cpf" value="{{ old('cpf', $imovel->owner->cpf) }}" required>
@@ -69,18 +83,16 @@
                                 </div>
                             </div>
                         </div>
-@csrf
+                        @csrf
                         <div class="form-group">
-                            <label for="images">{{ __('imovel.images') }}</label>
-
-                            @foreach ($imovel->images as $image)
-                                <div class="existing-image">
-                                    <img src="{{ asset($image->path) }}" alt="Imagem do imóvel">
-                                </div>
-                            @endforeach
-
-                            <input id="images" type="file" class="form-control{{ $errors->has('images') ? ' is-invalid' : '' }}" name="images[]" multiple>
-                            {!! $errors->first('images', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                            <label for="image">{{ __('imovel.images') }}</label>
+                            <div class="image-wrapper">
+                                @foreach($imovel->images as $img)
+                                <img src="{{ asset("storage/".$img->path) }}" alt=""> 
+                                @endforeach
+                            </div>
+                            <input id="image" type="file" class="form-control{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image">
+                            {!! $errors->first('image', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                         </div>
 
                         <div id="mapid"></div>

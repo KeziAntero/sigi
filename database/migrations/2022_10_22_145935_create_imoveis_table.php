@@ -16,8 +16,8 @@ class CreateImoveisTable extends Migration
         
         Schema::create('imoveis', function (Blueprint $table) {
             $table->id();
-            $table->string('seq')->unique();
             $table->string('tipo')->nullable();
+            $table->string('seq')->unique();
             $table->string('setor')->nullable();
             $table->string('quadra')->nullable();
             $table->string('lote')->nullable();

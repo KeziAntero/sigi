@@ -35,8 +35,8 @@
                     <thead>
                         <tr>
                             <th class="text-center">{{ __('app.table_no') }}</th>
-                            <th>{{ __('imovel.seq') }}</th>
                             <th>{{ __('imovel.tipo') }}</th>
+                            <th>{{ __('imovel.seq') }}</th>
                             <th>{{ __('imovel.setor') }}</th>
                             <th>{{ __('imovel.quadra') }}</th>
                             <th>{{ __('imovel.lote') }}</th>
@@ -49,8 +49,8 @@
                         @foreach($imoveis as $key => $imovel)
                             <tr>
                                 <td class="text-center">{{ $imoveis->firstItem() + $key }}</td>
-                                <td>{{ $imovel->seq }}</td>
                                 <td>{{ $imovel->tipo }}</td>
+                                <td>{{ $imovel->seq }}</td>
                                 <td>{{ $imovel->setor }}</td>
                                 <td>{{ $imovel->quadra }}</td>
                                 <td>{{ $imovel->lote }}</td>
@@ -68,11 +68,15 @@
                                         <i class="fas fa-edit"></i></button>
                                 </form>
 
-                                <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" class="d-inline-block" id="delete-imovel-{{ $imovel->id }}">
-                                    <button type="submit" form="delete-imovel-{{ $imovel->id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> {{ __('app.delete_confirm_button') }}</button>
-                                    {{ csrf_field() }} {{ method_field('delete') }}
+                               <form method="POST" action="{{ route('imoveis.destroy', $imovel) }}" class="d-inline-block" onsubmit="return confirm('{{ __('app.delete_confirm') }}')">
+                                    <button type="submit" class="btn btn-danger btn-sm delete-imovel-button" data-imovel-id="{{ $imovel->id }}">
+                                        <i class="fas fa-trash"></i> {{ __('app.delete_confirm_button') }}
+                                    </button>
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
                                     <input name="imovel_id" type="hidden" value="{{ $imovel->id }}">
                                 </form>
+
                             </td>
                             
                         </tr>
@@ -85,3 +89,5 @@
     </div>
     <small>{{ __('app.total') }} {{ __('imovel.imovel') }}  : {{ $imoveis->total() }} </small>
 @endsection
+
+

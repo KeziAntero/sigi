@@ -51,7 +51,7 @@ return [
     'territory'  => 'Territorial',
     'building'   => 'Predial',
     'tipo'   => 'Tipo de imóvel',
-    'images'   => 'Imagens do imóvel',
+    'images'   => 'Fachada do imóvel',
 
 
     // Onwner Attributes

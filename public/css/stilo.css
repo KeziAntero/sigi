@@ -16,7 +16,53 @@ body {
   background: #ffffff;
   color: black;
 } 
+
+.image-wrapper {
+  margin-top: 5px;
+  margin-bottom: 20px; 
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.image-wrapper img {
+  display: block;
+  margin-top: 5px;
+  width: 200px;
+  height: auto;
+}
+
+.image-wrapper div {
+  display: inline-block;
   
+}
+
+.image-wrapper-2 {
+  margin-top: 20px;
+  margin-bottom: 10px; 
+  border: 0;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.image-wrapper-2 .image-item {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.image-wrapper-2 img {
+  display: block;
+  margin-top: 5px;
+  width: 200px;
+  height: auto;
+}
+
+
+
 @media print {
 
 
