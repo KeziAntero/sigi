@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Imovel;
 use App\Owner;
 use Illuminate\Http\Request;
+use App\Policies\ImovelPolicy;
 use Illuminate\Support\Facades\Session;
-
 use Illuminate\Support\Facades\Storage;
 
 

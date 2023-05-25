@@ -19,21 +19,6 @@
                             <tr><td>{{ __('imovel.owner.name_owner') }}:</td><td>{{ $imovel->owner->name_owner}}</td></tr>
                             <tr><td>{{ __('imovel.latitude') }}:</td><td>{{ $imovel->latitude }}</td></tr>
                             <tr><td>{{ __('imovel.longitude') }}:</td><td>{{ $imovel->longitude }}</td></tr>
-                            <tr>
-                                <td>{{ __('imovel.images') }}:</td>
-                                <td>
-                                    <div class="image-wrapper-2">
-                                    @foreach($imovel->images as $img)
-                                        <div>
-                                        <img src="{{ asset("storage/".$img->path) }}" alt="" style="display: block;">
-                                        </div>
-                                    @endforeach
-                                    </div>
-                                </td>
-                            </tr>
-
-
-
                         </tbody>
                     </table>
                 </div>
@@ -48,9 +33,6 @@
                     @endif
                     <a href="javascript:window.print()" class="btn btn-primary float-right"><i class="fas fa-print"></i> {{ __('imovel.print') }}</a>
                 </div>
-
-
-
             </div>
         </div>
         <div class="col-md-6">
@@ -62,6 +44,11 @@
                 <div class="card-body">{{ __('imovel.no_coordinate') }}</div>
                 @endif
             </div>
+            <div class="image-wrapper-2">{{ __('imovel.images') }}:
+                @foreach ($imovel->images as $image)
+                    <img src="{{ asset('storage/' . $image->path) }}" alt="Imagem do imóvel">
+                @endforeach
+            </div>               
         </div>
     </div>
 @endsection
