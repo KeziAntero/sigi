@@ -1,27 +1,36 @@
-# Sigi
+# SIGI - Sistema de Gerenciamento Imobiliário
 
-O Sistema de Gerenciamento de Imobiliário (SIGI) foi desenvolvido como trabalho de conclusão do curso de Análise e Desenvolvimento de Sistemas no Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte (IFRN).
+**SIGI** é um Sistema de Informações Geográficas (SIG) desenvolvido para modernizar e otimizar a gestão imobiliária da cidade de Nova Cruz - RN. Ele integra dados cadastrais e croquis em uma plataforma web intuitiva, promovendo uma administração mais eficiente e precisa.
 
-## Sobre o projeto
+## 🚀 Funcionalidades
 
-O SIGI é um sistema de gerenciamento de imóveis que permite a gestão de informações sobre imóveis, proprietários, locatários e contratos de locação. O sistema foi desenvolvido em PHP utilizando o framework Laravel e possui diversas funcionalidades, como:
+- Armazenamento centralizado de croquis cadastrais em banco de dados geográfico.
+- Interface web interativa para manipulação de dados.
+- Visualização de mapas e consultas espaciais em tempo real.
+- Atualização rápida de informações cadastrais.
+- Eliminação de limitações do arquivamento físico e desenho manual.
 
-- Gestão de imóveis
-- Controle de proprietários
-- Gestão de locatários
-- Criação e gerenciamento de contratos de locação
+## 🛠️ Tecnologias Utilizadas
 
-## Como executar o projeto
+- **Framework**: Laravel
+- **Frontend**: HTML, CSS, JavaScript
+- **Biblioteca de Mapas**: Leaflet.js
+- **Banco de Dados**: Mysql
+- **Outras Integrações**: Sistema Integrado de Administração Tributária (SIAT)
 
-Para executar o projeto em sua máquina, siga os seguintes passos:
+## 📖 Objetivo
 
-1. Clone o repositório para sua máquina: 
+Este projeto foi desenvolvido como parte de um Trabalho de Conclusão de Curso (TCC), buscando atender às demandas da gestão tributária e imobiliária de Nova Cruz, modernizando processos e facilitando a tomada de decisão.
+
+## 📦 Como Usar
+
+1. Clone o repositório:
    ```bash
-   git clone https://github.com/KeziAntero/sigi-TCC.git
+   git clone https://github.com/KeziAntero/sigi.git
 
 2. Entre na pasta do projeto: 
    ```bash
-   cd sigi-TCC
+   cd sigi
 
 3. Crie um arquivo .env na raiz do projeto e configure as variáveis de ambiente com as informações do seu banco de dados. Você pode se basear no arquivo .env.example que já está no projeto. 
 
@@ -45,6 +54,11 @@ Para executar o projeto em sua máquina, siga os seguintes passos:
 ## Contribuições
  
  Contribuições são bem-vindas! Se você encontrou algum bug ou tem alguma ideia para melhorar o sistema, sinta-se livre para abrir uma issue ou enviar um pull request.
+
+
+ # 📝 Licença
+  
+  Este projeto está sob a licença MIT.
 
  
 
